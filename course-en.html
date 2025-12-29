@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Английский A1 | Упражнения</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .course-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            margin-top: 60px;
+        }
+        .lesson {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .exercise {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .exercise h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .matching {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .dropzone {
+            min-height: 40px;
+            border: 2px dashed #3498db;
+            border-radius: 6px;
+            padding: 8px;
+            background-color: #f8fafc;
+            outline: none;
+        }
+        .dropzone:focus {
+            border-color: #2980b9;
+            background-color: #e3f2fd;
+        }
+        .quiz label {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .quiz label:hover {
+            background: #e9ecef;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        .correct { color: #27ae60; }
+        .incorrect { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<nav class="fixed-menu">
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="catalog.html">Каталог</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+</nav>
+
+<header class="course-header">
+    <h1>🇬🇧 Английский язык — Уровень A1</h1>
+    <p>14 уроков • Интерактивные упражнения • Сертификат по окончании</p>
+</header>
+
+<main>
+
+<div class="lesson">
+    <h2>Урок 1: Знакомство и приветствие</h2>
+
+    <!-- УПРАЖНЕНИЕ 1: Drag-and-drop (на contenteditable) -->
+    <div class="exercise">
+        <h3>Упражнение 1: Сопоставьте фразы и перевод</h3>
+        <p>Кликните в пустое поле и введите правильный перевод.</p>
+
+        <div class="matching">
+            <div><strong>1. Hello</strong></div>
+            <div contenteditable="true" class="dropzone" data-answer="Привет" id="q1"></div>
+
+            <div><strong>2. My name is Anna</strong></div>
+            <div contenteditable="true" class="dropzone" data-answer="Меня зовут Анна" id="q2"></div>
+
+            <div><strong>3. How are you?</strong></div>
+            <div contenteditable="true" class="dropzone" data-answer="Как дела?" id="q3"></div>
+        </div>
+
+        <button onclick="checkMatching()">Проверить</button>
+        <p id="match-result"></p>
+    </div>
+
+    <!-- УПРАЖНЕНИЕ 2: Тест с выбором -->
+    <div class="exercise">
+        <h3>Упражнение 2: Выберите правильный вариант</h3>
+        <p>Как по-английски будет «До свидания»?</p>
+
+        <div class="quiz">
+            <label><input type="radio" name="q2" value="a"> Good morning</label>
+            <label><input type="radio" name="q2" value="b"> Thank you</label>
+            <label><input type="radio" name="q2" value="c"> Goodbye</label>
+        </div>
+
+        <button onclick="checkQuiz()">Проверить ответ</button>
+        <p id="result"></p>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="catalog.html"><button style="background:#27ae60">← Вернуться в каталог</button></a>
+    </div>
+</div>
+
+</main>
+
+<script>
+// Упражнение 1: Проверка сопоставления
+function checkMatching() {
+    let correct = 0;
+    const total = 3;
+    
+    for (let i = 1; i <= total; i++) {
+        const el = document.getElementById(`q${i}`);
+        const userAnswer = el.innerText.trim().toLowerCase();
+        const correctAnswer = el.dataset.answer.toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            el.style.border = "2px solid #27ae60";
+            el.style.backgroundColor = "#e8f5e9";
+            correct++;
+        } else {
+            el.style.border = "2px solid #e74c3c";
+            el.style.backgroundColor = "#ffebee";
+        }
+    }
+
+    const resultEl = document.getElementById('match-result');
+    if (correct === total) {
+        resultEl.innerHTML = '✅ Отлично! Все ответы верны.';
+        resultEl.className = 'correct';
+    } else {
+        resultEl.innerHTML = `❌ Правильно: ${correct} из ${total}. Попробуйте ещё!`;
+        resultEl.className = 'incorrect';
+    }
+}
+
+// Упражнение 2: Тест с выбором
+function checkQuiz() {
+    const selected = document.querySelector('input[name="q2"]:checked');
+    const resultEl = document.getElementById('result');
+    
+    if (!selected) {
+        resultEl.innerHTML = 'Пожалуйста, выберите вариант.';
+        resultEl.className = 'incorrect';
+        return;
+    }
+
+    if (selected.value === 'c') {
+        resultEl.innerHTML = '✅ Верно! "Goodbye" — это "До свидания".';
+        resultEl.className = 'correct';
+    } else {
+        resultEl.innerHTML = '❌ Неверно. Правильный ответ: <strong>Goodbye</strong>.';
+        resultEl.className = 'incorrect';
+    }
+}
+</script>
+
+</body>
+</html>

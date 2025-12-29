@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог курсов | Сайт для изучения языков</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      
+        .filters {
+            text-align: center;
+            padding: 20px;
+            background-color: #ecf0f1;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .filters button {
+            margin: 0 8px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .filters button:hover {
+            background-color: #2980b9;
+        }
+        .filters button.active {
+            background-color: #27ae60;
+        }
+        .page-header {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="fixed-menu">
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="catalog.html" class="active">Каталог</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+</nav>
+
+<header class="languages-header">
+    <h1>Каталог курсов</h1>
+</header>
+
+<div class="page-header">
+    <p>Выберите язык и уровень — начните учиться уже сегодня!</p>
+</div>
+
+<div class="filters">
+    <button onclick="filterCourses('all')" class="active">Все языки</button>
+    <button onclick="filterCourses('en')">Английский</button>
+    <button onclick="filterCourses('es')">Испанский</button>
+    <button onclick="filterCourses('it')">Итальянский</button>
+    <button onclick="filterCourses('de')">Немецкий</button>
+</div>
+
+<section class="products-grid" id="courses-grid">
+    
+    <div class="product-card" data-lang="en">
+        <img src="курс английского.jpg" alt="Курс английского">
+        <h3>Английский язык</h3>
+        <p><strong>Уровень:</strong> A1–A2<br>
+           <strong>Уроков:</strong> 14<br>
+           <strong>Продолжительность:</strong> 2 месяца</p>
+        <span class="price">4 700 ₽</span>
+        <a href="course-en.html"><button>Подробнее →</button></a>
+    </div>
+
+    
+    <div class="product-card" data-lang="es">
+        <img src="курсы испанского.jpg" alt="Курс испанского">
+        <h3>Испанский язык</h3>
+        <p><strong>Уровень:</strong> A1<br>
+           <strong>Уроков:</strong> 14<br>
+           <strong>Продолжительность:</strong> 1.5 месяца</p>
+        <span class="price">3 500 ₽</span>
+        <button disabled>Скоро в продаже</button>
+    </div>
+
+  
+    <div class="product-card" data-lang="it">
+        <img src="Курс по итальянскому.jpg" alt="Курс по итальянскому">
+        <h3>Итальянский язык</h3>
+        <p><strong>Уровень:</strong> A1<br>
+           <strong>Уроков:</strong> 14<br>
+           <strong>Продолжительность:</strong> 2 месяца</p>
+        <span class="price">3 700 ₽</span>
+        <button disabled>Скоро в продаже</button>
+    </div>
+
+    
+    <div class="product-card" data-lang="de">
+        <img src="Курс немецкого фото.jpg" alt="Курс по немецкому">
+        <h3>Немецкий язык</h3>
+        <p><strong>Уровень:</strong> A1<br>
+           <strong>Уроков:</strong> 14<br>
+           <strong>Продолжительность:</strong> 2.5 месяца</p>
+        <span class="price">4 500 ₽</span>
+        <button disabled>Скоро в продаже</button>
+    </div>
+</section>
+
+
+<script>
+function filterCourses(lang) {
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+        if (lang === 'all' || card.dataset.lang === lang) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    
+    document.querySelectorAll('.filters button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
